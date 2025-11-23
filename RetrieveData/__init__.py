@@ -5,7 +5,6 @@ import os
 from azure.data.tables import TableClient
 from azure.functions import HttpRequest, HttpResponse
 
-
 TABLE_CONNECTION_NAME = "AzureWebJobsStorage"
 TABLE_NAME = "processeditems"
 
@@ -35,10 +34,10 @@ def main(req: HttpRequest) -> HttpResponse:
     entities = table_client.query_entities(query_filter)
     
     result_list = []
+
     for entity in entities:
         result_list.append(dict(entity))
 
-    # Return the results as a clean JSON response
     return HttpResponse(
         body=json.dumps(result_list),
         mimetype="application/json",
